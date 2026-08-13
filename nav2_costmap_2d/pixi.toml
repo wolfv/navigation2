@@ -1,0 +1,12 @@
+[package.build.backend]
+name = "pixi-build-ros"
+version = "*"
+channels = ["https://prefix.dev/pixi-build-backends", "https://prefix.dev/conda-forge"]
+
+[package.build.config]
+distro = "kilted"
+# The plugin meta-package is not published for every RoboStack platform.
+# The build only needs the point_cloud_transport API package.
+extra-package-mappings = [
+  { point_cloud_transport_plugins = { ros = ["point_cloud_transport"] } },
+]

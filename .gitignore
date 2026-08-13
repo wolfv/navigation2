@@ -70,3 +70,6 @@ Session.vim
 
 # Vim Temporary
 .netrwhist
+
+# Pixi environments and build cache
+.pixi/

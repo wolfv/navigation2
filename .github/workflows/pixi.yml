@@ -1,0 +1,35 @@
+name: Pixi cross-platform build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: pixi (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            platform: linux-64
+          - runner: macos-15
+            platform: osx-arm64
+          - runner: windows-2022
+            platform: win-64
+
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 180
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: prefix-dev/setup-pixi@v0.9.3
+        with:
+          cache: true
+          frozen: true
+
+      - name: Build Navigation2 packages
+        run: pixi install --locked
